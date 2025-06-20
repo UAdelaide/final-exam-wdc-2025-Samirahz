@@ -16,6 +16,20 @@ app.use(session({
   saveUninitialized: false
 }));
 
+// login route
+const mysql = require('mysql2/promise');
+let db;
+
+// DB connection when server starts
+(async () => {
+  db = await mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'DogWalkService'
+  });
+})();
+
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
 const userRoutes = require('./routes/userRoutes');
