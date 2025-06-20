@@ -70,7 +70,7 @@ app.get('/api/users/my-dogs', async (req, res) => {
   }
 
   try {
-    const [rows] = await db.execute(`  // use db directly, not req.db
+    const [rows] = await db.execute(`
       SELECT dog_id, name FROM Dogs WHERE owner_id = ?
     `, [req.session.user.id]);
 
