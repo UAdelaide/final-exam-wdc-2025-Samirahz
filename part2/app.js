@@ -11,9 +11,9 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 // session middleware
 app.use(session({
-  secret: 'dog-secret-key',
-  resave: false,
-  saveUninitialized: false
+    secret: 'dog-secret-key',
+    resave: false,
+    saveUninitialized: false
 }));
 
 // login route
@@ -22,34 +22,34 @@ let db;
 
 // DB connection when server starts
 (async () => {
-  db = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'DogWalkService'
-  });
+    db = await mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'DogWalkService'
+    });
 })();
 
 //login endpoint
 app.post('/login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
+    try {
+        const { username, password } = req.body;
 
-    const [rows] = await db.execute(`
+        const [rows] = await db.execute(`
       SELECT * FROM Users WHERE username = ? AND password_hash = ?
     `, [username, password]);
 
-    if (rows.length === 1) {
-      const user = rows[0];
-      req.session.user = { id: user.user_id, role: user.role };
-      res.json({ role: user.role });
-    } else {
-      res.status(401).json({ error: 'Invalid credentials' });
+        if (rows.length === 1) {
+            const user = rows[0];
+            req.session.user = { id: user.user_id, role: user.role };
+            res.json({ role: user.role });
+        } else {
+            res.status(401).json({ error: 'Invalid credentials' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
     }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
 });
 
 // Routes
