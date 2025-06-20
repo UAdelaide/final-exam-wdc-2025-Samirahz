@@ -46,10 +46,55 @@
 </head>
 
 <body>
-    <div id="app" class="container" tabindex="0" aria-label="Dog of the Day"></div>
-    <div class="dog-details" aria-live="polite" aria-atomic="true">
-      <h1>DOG OF THE DAY:</h1>
+    <div id="app" class="container" tabindex="0" aria-label="Dog of the Day">
+        <div class="dog-details" aria-live="polite" aria-atomic="true">
+            <h1 tabindex="0">DOG OF THE DAY:</h1>
+            <p><strong>Name:</strong> <span tabindex="0">{{ dogName }}</span></p>
+            <p><strong>Breed:</strong> <span tabindex="0">{{ breed }}</span></p>
+            <p><strong>Size:</strong> <span tabindex="0">{{ size }}</span></p>
+            <button @click="fetchDogPic" aria-label="Load new dog picture">New Dog</button>
+            <a href="https://dog.ceo/dog-api/documentation/random" target="_blank" class="tiny-link"
+                aria-label="Dog API documentation">API Doc</a>
+        </div>
+        <div>
+            <img :src="dogPic" alt="Random dog image" />
+        </div>
+        <div style="width: 100%; height: 300px; overflow-y: scroll;">
+            <p style="font-size: 4px; line-height: 1.0; color: #ccc;">
+                Here is some very small, low contrast text to make it difficult to read and increase cognitive load...
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi blandit finibus eros, eu scelerisque urna
+                cursus a.
+                Phasellus et sodales lacus. Vestibulum in lobortis nunc. Praesent et erat nec nulla congue vestibulum.
+            </p>
+            <button style="width: 10px; height: 10px; margin-top: 10px;">Tiny Btn</button>
+            <button style="width: 10px; height: 10px;">Tiny Btn2</button>
+        </div>
+    </div>
 
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const dogName = ref('Maximus the Confusing');
+                const breed = ref('Mystery Breed');
+                const size = ref('Medium');
+                const dogPic = ref('https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg');
+
+                async function fetchDogPic() {
+                    try {
+                        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+                        const data = await res.json();
+                        dogPic.value = data.message;
+                    } catch (err) {
+                        console.error('Failed to fetch dog picture', err);
+                    }
+                }
+
+                return { dogName, breed, size, dogPic, fetchDogPic };
+            }
+        }).mount('#app');
+    </script>
 </body>
 
 </html>
