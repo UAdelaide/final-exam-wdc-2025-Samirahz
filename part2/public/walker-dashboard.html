@@ -108,6 +108,7 @@
 
         onMounted(() => {
           loadWalkRequests();
+          getCurrentUser(); // to fetch logged-in walker id 
         });
 
         return {
