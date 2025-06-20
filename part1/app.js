@@ -21,6 +21,7 @@ app.use('/users', usersRouter);*/
 const SETUP_ON_START = false;
 
 let db;
+/*
 (async () => {
   try {
     const connection = await mysql.createConnection({
