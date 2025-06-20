@@ -29,8 +29,32 @@
       <div class="text-danger mt-2">{{ error }}</div>
     </form>
 
+    <!-- Dog table -->
+    <h2 class="mt-5">All Registered Dogs</h2>
+    <div v-if="loading" class="text-muted">Loading dogs...</div>
+    <table v-else class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Photo</th>
+          <th>Name</th>
+          <th>Breed</th>
+          <th>Size</th>
+          <th>Owner ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="dog in dogs" :key="dog.dog_id">
+          <td><img :src="dog.photo" alt="Dog photo" width="100" class="img-thumbnail" /></td>
+          <td>{{ dog.name }}</td>
+          <td>{{ dog.breed }}</td>
+          <td>{{ dog.size }}</td>
+          <td>{{ dog.owner_id }}</td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
-<!-- edited this part below-->
+  <!-- edited this part below-->
   <script>
     const { createApp } = Vue;
     createApp({
