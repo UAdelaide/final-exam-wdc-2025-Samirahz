@@ -64,7 +64,7 @@ app.post('/logout', (req, res) => {
 });
 
 // for dog's owner (task 15)
-router.get('/my-dogs', async (req, res) => {
+app.get('/my-dogs', async (req, res) => {
     if (!req.session.user || req.session.user.role !== 'owner') {
         return res.status(403).json({ error: 'Unauthorized' });
     }
