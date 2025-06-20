@@ -144,13 +144,13 @@ let db;
     }
 })();
 
-// Attach DB to request
+// Attaching DB to request
 app.use((req, res, next) => {
     req.db = db;
     next();
 });
 
-// Route: /api/dogs
+// Route
 app.get('/api/dogs', async (req, res) => {
     try {
         const [rows] = await req.db.execute(`
@@ -164,7 +164,7 @@ app.get('/api/dogs', async (req, res) => {
     }
 });
 
-// Route: /api/walkrequests/open
+// Route
 app.get('/api/walkrequests/open', async (req, res) => {
     try {
         const [rows] = await req.db.execute(`
@@ -180,7 +180,7 @@ app.get('/api/walkrequests/open', async (req, res) => {
     }
 });
 
-// Route: /api/walkers/summary
+// Route
 app.get('/api/walkers/summary', async (req, res) => {
     try {
         const [rows] = await req.db.execute(`
