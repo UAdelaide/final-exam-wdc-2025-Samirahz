@@ -30,6 +30,28 @@ let db;
   });
 })();
 
+//login endpoint
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const [rows] = await db.execute(`
+      SELECT * FROM Users WHERE username = ? AND password_hash = ?
+    `, [username, password]);
+
+    if (rows.length === 1) {
+      const user = rows[0];
+      req.session.user = { id: user.user_id, role: user.role };
+      res.json({ role: user.role });
+    } else {
+      res.status(401).json({ error: 'Invalid credentials' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
 const userRoutes = require('./routes/userRoutes');
