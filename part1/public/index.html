@@ -84,7 +84,7 @@
                         const data = await res.json();
                         dogPic.value = data.message;
                     } catch (err) {
-                        console.error('Failed to fetch dog picture', err);
+                        console.error('Cannot fetch dog picture', err);
                     }
                 }
 
