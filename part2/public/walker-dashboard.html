@@ -63,6 +63,15 @@
           }
         }
 
+        async function logout() {
+          try {
+            await fetch('/logout', { method: 'POST' });
+            window.location.href = 'index.html';
+          } catch (err) {
+            alert('Logout failed');
+          }
+        }
+
         async function applyToWalk(requestId) {
           try {
             const res = await fetch(`/api/walks/${requestId}/apply`, {
