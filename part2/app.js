@@ -90,7 +90,7 @@ app.get('/api/users/me', (req, res) => {
 });
 
 // Return all dogs - task 17
-app.get('/dogs', async (req, res) => {
+app.get('/api/dogs', async (req, res) => {
   try {
     const [rows] = await db.execute('SELECT * FROM Dogs');
     res.json(rows);
