@@ -127,7 +127,7 @@ let db;
       ((SELECT dog_id FROM Dogs WHERE name = 'Bella'), '2025-06-10 09:30:00', 45, 'Beachside Ave', 'accepted')
     `);
 
-        // Insert a rating for bobwalker
+        // Inserting a rating for bobwalker
         await db.execute(`
       INSERT INTO WalkRatings (request_id, walker_id, owner_id, rating, comments)
       VALUES (
@@ -138,9 +138,9 @@ let db;
       )
     `);
 
-        console.log('✅ Database and sample data setup complete.');
+        console.log('Database and sample data setup complete.');
     } catch (err) {
-        console.error('❌ Error setting up database:', err);
+        console.error('Error setting up database:', err);
     }
 })();
 
