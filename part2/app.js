@@ -81,12 +81,22 @@ app.get('/api/users/my-dogs', async (req, res) => {
   }
 });
 
-// added for task16
+// added for task 16
 app.get('/api/users/me', (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ error: 'Not logged in' });
   }
   res.json(req.session.user); // returns { id, role }
+});
+
+// Return all dogs - task 17
+router.get('/dogs', async (req, res) => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM Dogs');
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch dogs' });
+  }
 });
 
 
