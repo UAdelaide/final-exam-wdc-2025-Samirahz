@@ -99,14 +99,23 @@
             const res = await fetch('/api/dogs');
             const dogsData = await res.json();
 
-            // Get random image for each dog
             const dogsWithPhotos = await Promise.all(dogsData.map(async (dog) => {
               try {
-                const imgRes = await fetch('https://dog.ceo/api/image/random');
+                const imgRes = await fetch('https://dog.ceo/api/breeds/image/random');
                 const imgData = await imgRes.json();
-                return { ...dog, photo: imgData.message };
-              } catch {
-                return { ...dog, photo: '' };
+
+                console.log('Fetched image for dog:', dog.name, imgData.message);
+
+                return {
+                  ...dog,
+                  photo: imgData.message || 'https://via.placeholder.com/100?text=No+Image'
+                };
+              } catch (err) {
+                console.error('Image fetch failed:', err);
+                return {
+                  ...dog,
+                  photo: 'https://via.placeholder.com/100?text=No+Image'
+                };
               }
             }));
 
