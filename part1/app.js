@@ -149,7 +149,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Route
+// Route for dogs
 app.get('/api/dogs', async (req, res) => {
     try {
         const [rows] = await req.db.execute(`
@@ -163,7 +163,7 @@ app.get('/api/dogs', async (req, res) => {
     }
 });
 
-// Route
+// Route for 
 app.get('/api/walkrequests/open', async (req, res) => {
     try {
         const [rows] = await req.db.execute(`
