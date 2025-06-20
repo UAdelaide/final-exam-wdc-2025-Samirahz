@@ -65,20 +65,20 @@ app.post('/logout', (req, res) => {
 
 // for dog's owner (task 15)
 app.get('/api/users/my-dogs', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'owner') {
-        return res.status(403).json({ error: 'Unauthorized' });
-    }
+  if (!req.session.user || req.session.user.role !== 'owner') {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
 
-    try {
-        const [rows] = await db.execute(`
+  try {
+    const [rows] = await db.execute(`  // use db directly, not req.db
       SELECT dog_id, name FROM Dogs WHERE owner_id = ?
     `, [req.session.user.id]);
 
-        res.json(rows);
-    } catch (err) {
-        console.error('Failed to fetch dogs:', err);
-        res.status(500).json({ error: 'Failed to fetch dogs' });
-    }
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch dogs' });
+  }
 });
 
 
