@@ -147,6 +147,9 @@ let db;
     console.error('rror setting up database:', err);
   }
 })();
+*/
+
+
 
 // Attaching DB to request
 app.use((req, res, next) => {
