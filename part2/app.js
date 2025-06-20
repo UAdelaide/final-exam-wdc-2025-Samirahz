@@ -54,13 +54,13 @@ app.post('/login', async (req, res) => {
 
 //added this for logout:
 app.post('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).json({ error: 'Logout failed' });
-    }
-    res.clearCookie('connect.sid');
-    res.status(200).json({ message: 'Logged out' });
-  });
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ error: 'Logout failed' });
+        }
+        res.clearCookie('connect.sid');
+        res.status(200).json({ message: 'Logged out' });
+    });
 });
 
 // Routes
