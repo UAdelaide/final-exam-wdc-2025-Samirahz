@@ -38,6 +38,7 @@ let db;
       database: 'DogWalkService'
     });
 
+    if (SETUP_ON_START) {
     await db.execute(`
       CREATE TABLE Users (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
