@@ -52,20 +52,20 @@
         const message = ref('');
         const error = ref('');
         const walkerId = ref(null);  // store dynamic walker ID (task 16)
-       // const user = 3; not needed for task 16
+        // const user = 3; not needed for task 16
 
         // for task 16 - to get logged in user id
         async function getCurrentUser() {
-        try {
-          const res = await fetch('/api/users/me');
-          if (!res.ok) throw new Error('Failed to get current user');
-          const data = await res.json();
-          if (data.role !== 'walker') throw new Error('Not a walker');
-          walkerId.value = data.id;
-        } catch (err) {
-          error.value = err.message;
+          try {
+            const res = await fetch('/api/users/me');
+            if (!res.ok) throw new Error('Failed to get current user');
+            const data = await res.json();
+            if (data.role !== 'walker') throw new Error('Not a walker');
+            walkerId.value = data.id;
+          } catch (err) {
+            error.value = err.message;
+          }
         }
-      }
 
         async function loadWalkRequests() {
           try {
