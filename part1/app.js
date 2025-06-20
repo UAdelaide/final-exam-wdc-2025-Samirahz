@@ -138,9 +138,12 @@ let db;
       )
     `);
 
-    console.log('Database and sample data setup complete.');
+   console.log('✅ Database and sample data setup complete.');
+    } else {
+      console.log('ℹSkipping database setup. SETUP_ON_START = false');
+    }
   } catch (err) {
-    console.error('Error setting up database:', err);
+    console.error('rror setting up database:', err);
   }
 })();
 
