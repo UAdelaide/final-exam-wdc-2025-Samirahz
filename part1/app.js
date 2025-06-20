@@ -102,7 +102,7 @@ let db;
       )
     `);
 
-        // Insert users
+        // Inserting into users
         await db.execute(`
       INSERT INTO Users (username, email, password_hash, role)
       VALUES
@@ -111,7 +111,7 @@ let db;
       ('carol123', 'carol@example.com', 'hashed789', 'owner')
     `);
 
-        // Insert dogs
+        // Inserting into dogs
         await db.execute(`
       INSERT INTO Dogs (owner_id, name, size)
       VALUES
@@ -119,7 +119,7 @@ let db;
       ((SELECT user_id FROM Users WHERE username = 'carol123'), 'Bella', 'small')
     `);
 
-        // Insert walk requests
+        // Inserting into walk requests
         await db.execute(`
       INSERT INTO WalkRequests (dog_id, requested_time, duration_minutes, location, status)
       VALUES
@@ -127,7 +127,7 @@ let db;
       ((SELECT dog_id FROM Dogs WHERE name = 'Bella'), '2025-06-10 09:30:00', 45, 'Beachside Ave', 'accepted')
     `);
 
-        // Inserting a rating for bobwalker
+        // Inserting a rating for walker
         await db.execute(`
       INSERT INTO WalkRatings (request_id, walker_id, owner_id, rating, comments)
       VALUES (
