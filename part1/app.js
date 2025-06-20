@@ -39,7 +39,7 @@ let db;
     });
 
     if (SETUP_ON_START) {
-    await db.execute(`
+      await db.execute(`
       CREATE TABLE Users (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(50) UNIQUE NOT NULL,
@@ -50,7 +50,7 @@ let db;
       )
     `);
 
-    await db.execute(`
+      await db.execute(`
       CREATE TABLE Dogs (
         dog_id INT AUTO_INCREMENT PRIMARY KEY,
         owner_id INT NOT NULL,
@@ -60,7 +60,7 @@ let db;
       )
     `);
 
-    await db.execute(`
+      await db.execute(`
       CREATE TABLE WalkRequests (
         request_id INT AUTO_INCREMENT PRIMARY KEY,
         dog_id INT NOT NULL,
@@ -73,7 +73,7 @@ let db;
       )
     `);
 
-    await db.execute(`
+      await db.execute(`
       CREATE TABLE WalkApplications (
         application_id INT AUTO_INCREMENT PRIMARY KEY,
         request_id INT NOT NULL,
@@ -86,7 +86,7 @@ let db;
       )
     `);
 
-    await db.execute(`
+      await db.execute(`
       CREATE TABLE WalkRatings (
         rating_id INT AUTO_INCREMENT PRIMARY KEY,
         request_id INT NOT NULL,
@@ -102,8 +102,8 @@ let db;
       )
     `);
 
-    // Inserting into users
-    await db.execute(`
+      // Inserting into users
+      await db.execute(`
       INSERT INTO Users (username, email, password_hash, role)
       VALUES
       ('alice123', 'alice@example.com', 'hashed123', 'owner'),
@@ -111,24 +111,24 @@ let db;
       ('carol123', 'carol@example.com', 'hashed789', 'owner')
     `);
 
-    // Inserting into dogs
-    await db.execute(`
+      // Inserting into dogs
+      await db.execute(`
       INSERT INTO Dogs (owner_id, name, size)
       VALUES
       ((SELECT user_id FROM Users WHERE username = 'alice123'), 'Max', 'medium'),
       ((SELECT user_id FROM Users WHERE username = 'carol123'), 'Bella', 'small')
     `);
 
-    // Inserting into walk requests
-    await db.execute(`
+      // Inserting into walk requests
+      await db.execute(`
       INSERT INTO WalkRequests (dog_id, requested_time, duration_minutes, location, status)
       VALUES
       ((SELECT dog_id FROM Dogs WHERE name = 'Max'), '2025-06-10 08:00:00', 30, 'Parklands', 'open'),
       ((SELECT dog_id FROM Dogs WHERE name = 'Bella'), '2025-06-10 09:30:00', 45, 'Beachside Ave', 'accepted')
     `);
 
-    // Inserting a rating for walker
-    await db.execute(`
+      // Inserting a rating for walker
+      await db.execute(`
       INSERT INTO WalkRatings (request_id, walker_id, owner_id, rating, comments)
       VALUES (
         (SELECT request_id FROM WalkRequests WHERE location = 'Beachside Ave'),
@@ -138,9 +138,9 @@ let db;
       )
     `);
 
-   console.log('✅ Database and sample data setup complete.');
+      console.log('Database and sample data setup complete.');
     } else {
-      console.log('ℹSkipping database setup. SETUP_ON_START = false');
+      console.log('Skipping database setup. SETUP_ON_START = false');
     }
   } catch (err) {
     console.error('rror setting up database:', err);
