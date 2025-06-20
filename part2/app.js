@@ -52,7 +52,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-//added this for logout:
+//added this for logout
 app.post('/logout', (req, res) => {
     req.session.destroy(err => {
         if (err) {
