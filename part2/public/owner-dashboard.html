@@ -28,10 +28,15 @@
 
           <!-- edited this part for task 15-->
           <div class="mb-3">
-            <label class="form-label">Dog ID</label>
-            <input v-model="form.dog_id" type="number" class="form-control" required>
+            <label class="form-label">Select Dog</label>
+            <select v-model="form.dog_id" class="form-select" required>
+              <option disabled value="">-- Select your dog --</option>
+              <option v-for="dog in dogs" :key="dog.dog_id" :value="dog.dog_id">
+                {{ dog.name }}
+              </option>
+            </select>
           </div>
-          
+
           <div class="mb-3">
             <label class="form-label">Requested Date & Time</label>
             <input v-model="form.requested_time" type="datetime-local" class="form-control" required>
@@ -98,7 +103,7 @@
             error.value = 'Failed to load walk requests';
           }
         }
-       /* added this for logout */
+        /* added this for logout */
         async function logout() {
           try {
             await fetch('/logout', { method: 'POST' });
