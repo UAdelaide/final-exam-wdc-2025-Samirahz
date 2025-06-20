@@ -84,6 +84,7 @@
 
     createApp({
       setup() {
+        const dogs = ref([]); // added this for task 15
         const form = ref({
           dog_id: '',
           requested_time: '',
