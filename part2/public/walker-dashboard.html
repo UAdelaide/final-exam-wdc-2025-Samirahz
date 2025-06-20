@@ -51,9 +51,10 @@
         const walks = ref([]);
         const message = ref('');
         const error = ref('');
-        const walkerId = ref(null);  // store dynamic walker ID
+        const walkerId = ref(null);  // store dynamic walker ID (task 16)
         const user = 3;
 
+        // for task 16 - to get 
         async function getCurrentUser() {
         try {
           const res = await fetch('/api/users/me');
