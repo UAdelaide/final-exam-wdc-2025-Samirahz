@@ -37,7 +37,6 @@
         <tr>
           <th>Photo</th>
           <th>Name</th>
-          <th>Breed</th>
           <th>Size</th>
           <th>Owner ID</th>
         </tr>
@@ -46,7 +45,6 @@
         <tr v-for="dog in dogs" :key="dog.dog_id">
           <td><img :src="dog.photo" alt="Dog photo" width="100" class="img-thumbnail" /></td>
           <td>{{ dog.name }}</td>
-          <td>{{ dog.breed }}</td>
           <td>{{ dog.size }}</td>
           <td>{{ dog.owner_id }}</td>
         </tr>
