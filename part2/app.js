@@ -63,6 +63,8 @@ app.post('/logout', (req, res) => {
     });
 });
 
+// for dog's owner (task)
+
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
 const userRoutes = require('./routes/userRoutes');
