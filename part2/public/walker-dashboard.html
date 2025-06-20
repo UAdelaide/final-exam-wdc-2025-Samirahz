@@ -51,7 +51,20 @@
         const walks = ref([]);
         const message = ref('');
         const error = ref('');
+        const walkerId = ref(null);  // store dynamic walker ID
         const user = 3;
+
+        async function getCurrentUser() {
+        try {
+          const res = await fetch('/api/users/me');
+          if (!res.ok) throw new Error('Failed to get current user');
+          const data = await res.json();
+          if (data.role !== 'walker') throw new Error('Not a walker');
+          walkerId.value = data.id;
+        } catch (err) {
+          error.value = err.message;
+        }
+      }
 
         async function loadWalkRequests() {
           try {
