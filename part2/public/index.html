@@ -64,8 +64,8 @@
           username: '',
           password: '',
           error: '',
-           dogs: [],
-      loading: true
+          dogs: [],
+          loading: true
         };
       },
       methods: {
@@ -97,32 +97,31 @@
         },
         // load dogs with random images
         async loadDogs() {
-      try {
-        const res = await fetch('/api/dogs');
-        const dogsData = await res.json();
-
-        // Get random image for each dog
-        const dogsWithPhotos = await Promise.all(dogsData.map(async (dog) => {
           try {
-            const imgRes = await fetch('https://dog.ceo/api/breeds/image/random');
-            const imgData = await imgRes.json();
-            return { ...dog, photo: imgData.message };
-          } catch {
-            return { ...dog, photo: '' };
-          }
-        }));
+            const res = await fetch('/api/dogs');
+            const dogsData = await res.json();
 
-        this.dogs = dogsWithPhotos;
-      } catch (err) {
-        console.error('Failed to load dogs:', err);
-      } finally {
-        this.loading = false;
-      }
-    }
-  },
-  mounted() {
-    this.loadDogs();
-  }
+            // Get random image for each dog
+            const dogsWithPhotos = await Promise.all(dogsData.map(async (dog) => {
+              try {
+                const imgRes = await fetch('https://dog.ceo/api/breeds/image/random');
+                const imgData = await imgRes.json();
+                return { ...dog, photo: imgData.message };
+              } catch {
+                return { ...dog, photo: '' };
+              }
+            }));
+
+            this.dogs = dogsWithPhotos;
+          } catch (err) {
+            console.error('Failed to load dogs:', err);
+          } finally {
+            this.loading = false;
+          }
+        }
+      },
+      mounted() {
+        this.loadDogs();
       }
     }).mount('#app');
   </script>
